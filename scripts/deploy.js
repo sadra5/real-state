@@ -17,9 +17,9 @@ async function main() {
   // console.log("buyer: ",buyer, " seller: " ,seller," inspector: ", inspector," lender: ", lender)
   // Deploy Real Estate
   const RealEstate = await ethers.getContractFactory('RealEstate')
-  const realEstate = await RealEstate.attach("0x66bfd7bec2176258d1E25934a27Bd07fa09930Df");
-  // const realEstate = await RealEstate.deploy()
-  // await realEstate.deployed()
+  // const realEstate = await RealEstate.attach("0x66bfd7bec2176258d1E25934a27Bd07fa09930Df");
+  const realEstate = await RealEstate.deploy()
+  await realEstate.deployed()
 
   console.log(`Deployed Real Estate Contract at: ${realEstate.address}`)
   
@@ -55,14 +55,17 @@ async function main() {
   // Listing properties...
   console.log("Listing properties...")
   
-  transaction = await escrow.connect(seller).list(1, buyer.address, tokens(20), tokens(10))
+  transaction = await escrow.connect(seller).list(1, buyer.address, tokens(20), tokens(10), { gasLimit: 500000 } )
   await transaction.wait()
-
-  transaction = await escrow.connect(seller).list(2, buyer.address, tokens(15), tokens(5))
+  console.log("done 1")
+  
+  transaction = await escrow.connect(seller).list(2, buyer.address, tokens(15), tokens(5), { gasLimit: 500000 } )
   await transaction.wait()
-
-  transaction = await escrow.connect(seller).list(3, buyer.address, tokens(10), tokens(5))
+  console.log("done 2")
+  
+  transaction = await escrow.connect(seller).list(3, buyer.address, tokens(10), tokens(5), { gasLimit: 500000 } )
   await transaction.wait()
+  console.log("done 3")
 
   console.log(`Finished.`)
 }
