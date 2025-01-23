@@ -24,7 +24,11 @@ function App() {
   const [toggle, setToggle] = useState(false);
 
   const loadBlockchainData = async () => {
-    const provider = new ethers.providers.Web3Provider(window.ethereum)
+    // const provider = new ethers.providers.Web3Provider(window.ethereum)
+    const sepoliaRpcUrl = "https://sepolia.infura.io/v3/d1cac39e6a124d2abf88edd05281aace";
+    // const sepoliaRpcUrl = "https://rpc.sepolia.org";
+    const provider = new ethers.providers.JsonRpcProvider(sepoliaRpcUrl);
+    console.log(provider)
     setProvider(provider)
     const network = await provider.getNetwork()
 
